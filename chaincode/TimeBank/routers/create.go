@@ -17,23 +17,23 @@ func CreateUser(stub shim.ChaincodeStubInterface, args []string) peer.Response {
 
 	//_ = fmt.Sprintf("User %s is creating ...", args[0])
 
-	if len(args) != 10 {
+	if len(args) != 8 {
 		return shim.Error("Expect to have the right information to create a user !!!")
 	}
 	var userability []string
 	userid := utils.RandSeq(11)
-	username := args[1]
-	useridentification := args[2]
-	usersex := args[3]
-	userbirthday := args[4]
-	useraddress := args[5]
-	userpostcode := args[6]
-	userability = append(userability, args[7])
+	username := args[0]
+	useridentification := args[1]
+	usersex := args[2]
+	userbirthday := args[3]
+	useraddress := args[4]
+	userpostcode := args[5]
+	userability = append(userability, args[6])
 	//userstarsign
 
-	userasset, _ := strconv.ParseFloat(args[9], 64)
+	//userasset := float64(0)
 	//comment
-	recommondid := args[9]
+	recommondid := args[7]
 	CtUser := &lib.User{
 		UserID:             userid,
 		UserName:           username,
@@ -43,7 +43,7 @@ func CreateUser(stub shim.ChaincodeStubInterface, args []string) peer.Response {
 		Address:            useraddress,
 		Postcode:           userpostcode,
 		Ability:            userability,
-		UserAsset:          userasset,
+		UserAsset:          float64(0),
 		RecommenderID:      recommondid,
 	}
 	//推荐有奖
@@ -107,14 +107,14 @@ func CreateUser(stub shim.ChaincodeStubInterface, args []string) peer.Response {
 //创建服务
 func CreateService(stub shim.ChaincodeStubInterface, args []string) peer.Response {
 	//_ = fmt.Sprintf("%s service is creating ...", args[1])
-	if len(args) != 4 {
+	if len(args) != 3 {
 		return shim.Error("Expect to have the right information to create a service !!!")
 	}
 
 	serid := utils.RandSeq(6)
-	sername := args[1]
-	serunitcost, _ := strconv.ParseFloat(args[2], 64)
-	serdescription := args[3]
+	sername := args[0]
+	serunitcost, _ := strconv.ParseFloat(args[1], 64)
+	serdescription := args[2]
 
 	service := &lib.JobPrice{
 		JobID:               serid,
