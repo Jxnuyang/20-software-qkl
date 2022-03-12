@@ -54,6 +54,40 @@ func (t *BlockChainTimeBank) Init(stub shim.ChaincodeStubInterface) peer.Respons
 		// 写入账本
 		utils.WriteLedger(oragnization, stub, lib.OrganizationKey, []string{val})
 	}
+
+	//杨大爷
+	userwang := &lib.User{
+		UserID:             "01",
+		UserName:           "杨大爷",
+		UserIdentification: "110101199003076675",
+		Sex:                "男",
+		Birthday:           "1990-3-7",
+		Address:            "江西师范大学青山湖校区",
+		Postcode:           "330027",
+		Ability:            []string{"做饭", "教学高数"},
+		StarSign:           3,
+		UserAsset:          float64(1000),
+		Comment:            []string{"很细心", "Good!!!", "王老师教的高数就是好"},
+		RecommenderID:      "",
+	}
+	//吕婆婆
+	userlv := &lib.User{
+		UserID:             "02",
+		UserName:           "吕婆婆",
+		UserIdentification: "110101199006068985",
+		Sex:                "女",
+		Birthday:           "1990-6-6",
+		Address:            "江西师范大学瑶湖校区",
+		Postcode:           "330022",
+		Ability:            []string{"做饭", "洗衣服", "教学化学"},
+		StarSign:           5,
+		UserAsset:          float64(6000),
+		Comment:            []string{"很细心", "Very Good!!!", "太可爱了"},
+		RecommenderID:      "",
+	}
+
+	_ = utils.WriteLedger(userwang, stub, lib.UserKey, []string{userwang.UserID})
+	_ = utils.WriteLedger(userlv, stub, lib.UserKey, []string{userlv.UserID})
 	return shim.Success(nil)
 }
 
