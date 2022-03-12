@@ -95,13 +95,13 @@ func CreateUser(stub shim.ChaincodeStubInterface, args []string) peer.Response {
 		return shim.Error("Failed to find the organization !!!")
 	}
 	var orgList lib.Organization
-	json.Unmarshal(org[0], &orgList)
+	_ = json.Unmarshal(org[0], &orgList)
 
 	orgList.UserSum++
 	orgList.HaveUserID = append(orgList.HaveUserID, CtUser.UserID)
 
 	_ = utils.WriteLedger(orgList, stub, lib.OrganizationKey, []string{CtUser.Postcode})
-	return shim.Success([]byte(fmt.Sprintf("User %s was Created successfully ...", args[1])))
+	return shim.Success([]byte(fmt.Sprintf("User %s was Created successfully ...", userid)))
 }
 
 //创建服务
@@ -125,7 +125,7 @@ func CreateService(stub shim.ChaincodeStubInterface, args []string) peer.Respons
 
 	_ = utils.WriteLedger(service, stub, lib.JobPriceKey, []string{serid})
 
-	return shim.Success([]byte(fmt.Sprintf("%s service was created successfully", args[1])))
+	return shim.Success([]byte(fmt.Sprintf("%s service was created successfully", serid)))
 }
 
 //创建组织
