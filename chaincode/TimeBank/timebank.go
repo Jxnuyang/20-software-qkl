@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"gocode/TimeBank/routers"
 	"time"
 
 	"github.com/Jxnuyang/20-software-qkl/chaincode/TimeBank/lib"
@@ -118,38 +119,42 @@ func (t *BlockChainTimeBank) Invoke(stub shim.ChaincodeStubInterface) peer.Respo
 
 	funcName, args := stub.GetFunctionAndParameters()
 	//fmt.Sprintf("Invoke %s start ...", funcName)
-	if funcName == "CreateUser" {
+	if funcName == "CreateUser" { //创建用户
 		return routers.CreateUser(stub, args)
-	} else if funcName == "CreateService" {
+	} else if funcName == "CreateService" { //创建服务
 		return routers.CreateService(stub, args)
-	} else if funcName == "CreateOrg" {
+	} else if funcName == "CreateOrg" { //创建组织
 		return routers.CreateOrg(stub, args)
-	} else if funcName == "UserList" {
+	} else if funcName == "UserList" { //打印用户信息
 		return routers.UserList(stub, args)
-	} else if funcName == "OrgList" {
+	} else if funcName == "OrgList" { //打印组织信息
 		return routers.OrgList(stub, args)
-	} else if funcName == "ManagerList" {
+	} else if funcName == "ManagerList" { //打印管理员信息
 		return routers.ManagerList(stub, args)
-	} else if funcName == "CreateServicing" {
+	} else if funcName == "CreateServicing" { //发起服务
 		return routers.CreateServicing(stub, args)
-	} else if funcName == "AcceptServicing" {
+	} else if funcName == "AcceptServicing" { //接受服务
 		return routers.AcceptServicing(stub, args)
-	} else if funcName == "DoneServicing" {
+	} else if funcName == "DoneServicing" { //结束服务
 		return routers.DoneServicing(stub, args)
-	} else if funcName == "CloseServicing" {
+	} else if funcName == "CloseServicing" { //取消服务
 		return routers.CloseServicing(stub, args)
-	} else if funcName == "QueryServicingStatus" {
+	} else if funcName == "QueryServicingStatus" { //查询订单状态
 		return routers.QueryServicingStatus(stub, args)
-	} else if funcName == "QueryServiceTrade" {
+	} else if funcName == "QueryServiceTrade" { //查询服务记录
 		return routers.QueryServiceTrade(stub, args)
-	} else if funcName == "TransferAsset" {
+	} else if funcName == "TransferAsset" { //转移资产
 		return routers.TransferAsset(stub, args)
-	} else if funcName == "InheritAsset" {
+	} else if funcName == "InheritAsset" { //继承资产
 		return routers.InheritAsset(stub, args)
-	} else if funcName == "RechargeAsset" {
+	} else if funcName == "RechargeAsset" { //充值资产
 		return routers.RechargeAsset(stub, args)
-	} else if funcName == "" {
+	} else if funcName == "SpecialTradeList" { //打印特殊交易
 		return routers.SpecailTradeList(stub, args)
+	} else if funcName == "ElderServicingList" { //打印所有老人服务状态
+		return routers.ElderServicingList(stub, args)
+	} else if funcName == "ServiceList" { //打印可提供的服务
+		return routers.ServiceList(stub, args)
 	} else {
 		return shim.Error("Invoke funcName error !!!")
 	}
