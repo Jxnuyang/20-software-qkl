@@ -37,7 +37,7 @@ func UserList(stub shim.ChaincodeStubInterface, args []string) peer.Response {
 
 //打印组织信息
 func OrgList(stub shim.ChaincodeStubInterface, args []string) peer.Response {
-	var printorglsit []lib.Organization
+	var printorglist []lib.Organization
 	results, err := utils.QueryLedger(stub, lib.OrganizationKey, args)
 	if err != nil {
 		return shim.Error(fmt.Sprintf("%s", err))
@@ -49,10 +49,10 @@ func OrgList(stub shim.ChaincodeStubInterface, args []string) peer.Response {
 			if err != nil {
 				return shim.Error((fmt.Sprintf("OrgList unmashal error : %s", err)))
 			}
-			printorglsit = append(printorglsit, printorg)
+			printorglist = append(printorglist, printorg)
 		}
 	}
-	printorgbyte, err := json.Marshal(printorglsit)
+	printorgbyte, err := json.Marshal(printorglist)
 	if err != nil {
 		return shim.Error(fmt.Sprintf("OrgList marshal error : %s", err))
 	}
@@ -81,4 +81,52 @@ func ManagerList(stub shim.ChaincodeStubInterface, args []string) peer.Response 
 		return shim.Error(fmt.Sprintf("ManagerList marshal error : %s", err))
 	}
 	return shim.Success(printmanagerbyte)
+}
+
+//打印所有可选择服务
+func ServiceList(stub shim.ChaincodeStubInterface, args []string) peer.Response {
+	var printservicelist []lib.JobPrice
+	results, err := utils.QueryLedger(stub, lib.JobPriceKey, args)
+	if err != nil {
+		return shim.Error(fmt.Sprintf("%s", err))
+	}
+	for _, v := range results {
+		if v != nil {
+			var printservice lib.JobPrice
+			err := json.Unmarshal(v, &printservice)
+			if err != nil {
+				return shim.Error((fmt.Sprintf("ServiceList unmashal error : %s", err)))
+			}
+			printservicelist = append(printservicelist, printservice)
+		}
+	}
+	printservicebyte, err := json.Marshal(printservicelist)
+	if err != nil {
+		return shim.Error(fmt.Sprintf("ServiceList marshal error : %s", err))
+	}
+	return shim.Success(printservicebyte)
+}
+
+//打印所有老人的正在交易的详细信息
+func ElderServicingList(stub shim.ChaincodeStubInterface, args []string) peer.Response {
+	var printelderservicinglist []lib.Servicing
+	results, err := utils.QueryLedger(stub, lib.ServicingKey, args)
+	if err != nil {
+		return shim.Error(fmt.Sprintf("%s", err))
+	}
+	for _, v := range results {
+		if v != nil {
+			var printelderservicing lib.Servicing
+			err := json.Unmarshal(v, &printelderservicing)
+			if err != nil {
+				return shim.Error((fmt.Sprintf("ElderServiceList unmashal error : %s", err)))
+			}
+			printelderservicinglist = append(printelderservicinglist, printelderservicing)
+		}
+	}
+	printelderservicingbyte, err := json.Marshal(printelderservicinglist)
+	if err != nil {
+		return shim.Error(fmt.Sprintf("ElderServiceList marshal error : %s", err))
+	}
+	return shim.Success(printelderservicingbyte)
 }
