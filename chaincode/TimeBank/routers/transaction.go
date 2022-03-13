@@ -25,7 +25,7 @@ import (
 
 //老人发起服务
 func CreateServicing(stub shim.ChaincodeStubInterface, args []string) peer.Response {
-	if len(args) != 4 {
+	if len(args) != 3 {
 		return shim.Error("Expect the right parameters !!!")
 	}
 	servicingType := args[0]
@@ -152,9 +152,6 @@ func AcceptServicing(stub shim.ChaincodeStubInterface, args []string) peer.Respo
 
 //供老人查看服务状态，输入老人id以及服务类型id，即可查询服务状态
 func QueryServicingStatus(stub shim.ChaincodeStubInterface, args []string) peer.Response {
-	if len(args) == 0 {
-		return shim.Error("Expect correct information !!!")
-	}
 	var serviceList []lib.Servicing
 	results, err := utils.GetStateByPartialCompositeKeys(stub, lib.ServicingKey, args)
 	if err != nil {
@@ -174,7 +171,7 @@ func QueryServicingStatus(stub shim.ChaincodeStubInterface, args []string) peer.
 	return shim.Success(serviceListByte)
 }
 
-//查询服务记录，输入交易id、交易双方id或者交易双方id和交易id，即可查询两人间的所有服务记录
+//查询服务记录，输入交易id、交易双方id和交易id，即可查询两人间的所有服务记录
 func QueryServiceTrade(stub shim.ChaincodeStubInterface, args []string) peer.Response {
 	if len(args) == 0 {
 		return shim.Error("Expect correct information !!!")
