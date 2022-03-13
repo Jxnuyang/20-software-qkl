@@ -125,7 +125,7 @@ func CreateService(stub shim.ChaincodeStubInterface, args []string) peer.Respons
 
 	_ = utils.WriteLedger(service, stub, lib.JobPriceKey, []string{serid})
 
-	return shim.Success([]byte(fmt.Sprintf("%s service was created successfully", serid)))
+	return shim.Success([]byte(fmt.Sprintf("%s service onlysign %s was created successfully", args[0], serid)))
 }
 
 //创建组织
@@ -144,10 +144,10 @@ func CreateOrg(stub shim.ChaincodeStubInterface, args []string) peer.Response {
 		OrgID:      orgid,
 		OrgName:    orgname,
 		UserSum:    orgnum,
-		HaveUserID: nil,
+		HaveUserID: []string{},
 	}
 
 	_ = utils.WriteLedger(org, stub, lib.OrganizationKey, []string{orgid})
 
-	return shim.Success([]byte(fmt.Sprintf("%s org was created successfully", args[1])))
+	return shim.Success([]byte(fmt.Sprintf("%s org postcode %s was created successfully", args[1], args[0])))
 }
