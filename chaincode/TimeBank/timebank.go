@@ -10,6 +10,9 @@ import (
 
 	"github.com/hyperledger/fabric-chaincode-go/shim"
 	"github.com/hyperledger/fabric-protos-go/peer"
+	//"github.com/togettoyou/blockchain-real-estate/chaincode/blockchain-real-estate/lib"
+	//"github.com/togettoyou/blockchain-real-estate/chaincode/blockchain-real-estate/routers"
+	//"github.com/togettoyou/blockchain-real-estate/chaincode/blockchain-real-estate/utils"
 )
 
 type BlockChainTimeBank struct {
@@ -152,12 +155,14 @@ func (t *BlockChainTimeBank) Invoke(stub shim.ChaincodeStubInterface) peer.Respo
 		return routers.ElderServicingList(stub, args)
 	} else if funcName == "ServiceList" { //打印可提供的服务
 		return routers.ServiceList(stub, args)
-	} else if funcName == "UpdateUserInfo" {//更新用户信息
+	} else if funcName == "UpdateUserInfo" {
 		return routers.UpdateUserInfo(stub, args)
-	} else if funcName == "UpdateServiceInfo" {//更新服务信息
+	} else if funcName == "UpdateServiceInfo" {
 		return routers.UpdateServiceInfo(stub, args)
-	} else if funcName == "GetUpdateHistory" {//查询更新历史记录
+	} else if funcName == "GetUpdateHistory" {
 		return routers.GetUpdateHistory(stub, args)
+	} else if funcName == "RechargeList" {
+		return routers.RechargeList(stub, args)
 	} else {
 		return shim.Error("Invoke funcName error !!!")
 	}
