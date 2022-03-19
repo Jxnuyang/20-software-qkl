@@ -136,9 +136,9 @@ func (t *BlockChainTimeBank) Invoke(stub shim.ChaincodeStubInterface) peer.Respo
 		return routers.DoneServicing(stub, args)
 	} else if funcName == "CloseServicing" { //取消服务
 		return routers.CloseServicing(stub, args)
-	} else if funcName == "QueryServicingStatus" { //查询订单状态
+	} else if funcName == "QueryServicingStatus" { //查询订单状态，可查询所有订单或指定订单
 		return routers.QueryServicingStatus(stub, args)
-	} else if funcName == "QueryServiceTrade" { //查询服务记录
+	} else if funcName == "QueryServiceTrade" { //查询服务记录，可查询所有服务记录或指定服务记录
 		return routers.QueryServiceTrade(stub, args)
 	} else if funcName == "TransferAsset" { //转移资产
 		return routers.TransferAsset(stub, args)
@@ -148,17 +148,15 @@ func (t *BlockChainTimeBank) Invoke(stub shim.ChaincodeStubInterface) peer.Respo
 		return routers.RechargeAsset(stub, args)
 	} else if funcName == "SpecialTradeList" { //打印特殊交易
 		return routers.SpecialTradeList(stub, args)
-	} else if funcName == "ElderServicingList" { //打印所有老人服务状态
-		return routers.ElderServicingList(stub, args)
 	} else if funcName == "ServiceList" { //打印可提供的服务
 		return routers.ServiceList(stub, args)
-	} else if funcName == "UpdateUserInfo" {
+	} else if funcName == "UpdateUserInfo" {//更新用户信息
 		return routers.UpdateUserInfo(stub, args)
-	} else if funcName == "UpdateServiceInfo" {
+	} else if funcName == "UpdateServiceInfo" {//更新服务工作信息
 		return routers.UpdateServiceInfo(stub, args)
-	} else if funcName == "GetUpdateHistory" {
+	} else if funcName == "GetUpdateHistory" {//得到更新历史
 		return routers.GetUpdateHistory(stub, args)
-	} else if funcName == "RechargeList" {
+	} else if funcName == "RechargeList" {//打印充值记录
 		return routers.RechargeList(stub, args)
 	} else {
 		return shim.Error("Invoke funcName error !!!")
